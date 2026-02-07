@@ -1,0 +1,424 @@
+/* Global Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* border: 0.5px solid red; */ /* Uncomment for debugging */
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: lightgray;
+    text-align: center;
+    font-family: 'Moderustic', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Header Styles */
+header {
+    width: 98%;
+    margin: 0 auto;
+}
+
+.the-top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.top-left {
+    display: flex;
+    align-items: center;
+}
+
+.top-left h4 {
+    margin-left: 5px;
+}
+
+/* Logo (Circle Avatar) - Mobile Border-Radius Fix */
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%; /* Mobile WebKit fix */
+    overflow: hidden; /* Force rounded corner clipping */
+    object-fit: cover;
+    object-position: center;
+    margin-left: 10px;
+    display: block; /* Fix inline element rendering issue */
+}
+
+/* Top Navigation Links */
+.top-right nav a {
+    text-decoration: none;
+    color: black;
+    margin-right: 10px;
+    font-weight: bold;
+    display: block;
+}
+
+nav {
+    text-align: left;
+}
+
+.top-right nav a:hover {
+    color: #555;
+    font-style: italic;
+}
+
+/* Banner Section - Mobile Compatibility */
+.banner {
+    width: 100%;
+    height: 200px; /* Mobile height */
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    -webkit-border-radius: 10px; /* Mobile WebKit fix */
+}
+
+.top-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(50%);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Banner Text - Transform Compatibility */
+.top-words {
+    position: absolute;
+    left: 5%;
+    z-index: 10;
+    text-align: left;
+    width: 80%;
+    max-width: 600px;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%); /* Mobile WebKit fix */
+    margin: 0;
+    padding: 0;
+}
+
+.top-words h1 {
+    font-size: clamp(1rem, 3vw, 1.8rem);
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    color: whitesmoke;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+}
+
+.road {
+    display: block;
+}
+
+/* Main Content - No Negative Margins */
+.main-home {
+    margin-top: 0;
+    padding-top: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.main-home h2.instruction {
+    margin: 0 0 1.2rem 0;
+    font-size: 1.5rem;
+    line-height: 1.2;
+}
+
+/* Cards Grid Layout */
+.cards {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile: 1 column */
+    gap: 2rem;
+    padding: 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Skill Cards - Mobile Border-Radius Fix */
+.skills {
+    width: 100%;
+    /* 关键修改1：移除max-width，让卡片占满网格列宽，保证统一 */
+    /* max-width: 400px; */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: whitesmoke;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    -webkit-border-radius: 10px; /* Mobile WebKit fix */
+    overflow: hidden; /* Force rounded corner clipping */
+}
+
+/* Skill Card Images - 核心修复：统一图片尺寸 */
+.skills img {
+    width: 100%; /* Full width of the card (never narrower than the card) */
+    height: 200px; /* Keep consistent height */
+    object-fit: contain; /* Crop to fill container (no stretching) */
+    object-position: center; /* Keep focus on the center of the image */
+    margin-bottom: 0.8rem;
+    border-radius: 5%;
+    -webkit-border-radius: 5%;
+    overflow: hidden;
+    display: block;
+
+    /* --- Critical Fixes for Small Screens --- */
+    min-width: 280px; /* Prevent images from shrinking below 280px on tiny screens */
+    margin-left: auto; /* Center the image if min-width is larger than the card */
+    margin-right: auto;
+    max-height: 220px; /* Slight increase for small screens (optional but better) */
+}
+
+/* Optional: Optimize the card container for small screens */
+.skills {
+    width: calc(100% - 2rem); /* Full width minus small margin (no tight squeezing) */
+    max-width: none; /* Remove any max-width restriction on small screens */
+    margin: 0 auto; /* Center the card */
+}
+
+/* Media Query for Extra Small Screens (e.g., phones < 360px) */
+@media (max-width: 360px) {
+    .skills img {
+        height: 180px; /* Slightly reduce height for ultra-small screens */
+        min-width: 250px; /* Adjust min-width to fit tiny screens */
+    }
+}
+
+.skills time {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.skills h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+}
+
+.skills p {
+    /* 关键修改4：适配卡片宽度，移除固定max-width */
+    /* max-width: 280px; */
+    width: 100%; /* 占满卡片宽度 */
+    font-size: 1rem;
+    text-align: left;
+    line-height: 1.4;
+    margin-bottom: 0;
+    padding: 0 0.5rem; /* 加少量内边距，避免文字贴边 */
+}
+
+/* View More Button - Mobile Border-Radius Fix */
+.view-more {
+    margin: 2rem 0;
+}
+
+.view-more h3 a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.1rem;
+    padding: 0.8rem 2rem;
+    background-color: #fff;
+    border-radius: 5px;
+    -webkit-border-radius: 5px; /* Mobile WebKit fix */
+    overflow: hidden; /* Force rounded corner clipping */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+    display: inline-block; /* Fix button rendering */
+}
+
+.view-more h3 a:hover {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+/* Footer Styles - Ample Vertical Space */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 4rem 2rem; /* Generous vertical padding */
+    margin-top: 3rem; /* Space above footer */
+}
+
+footer h4 {
+    margin: 0 0 1.5em 0; /* Space below heading */
+    font-weight: 400;
+    font-size: 1.1rem;
+}
+
+footer .copyright {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 0;
+}
+
+footer p {
+    margin: 0 0 1.5em 0; /* Consistent space below paragraphs */
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+/* ------------------------------ */
+/* roadmap.html Specific Styles */
+/* ------------------------------ */
+.roadmap {
+    padding: 2rem 1rem;
+    background-color: whitesmoke;
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    -webkit-border-radius: 10px; /* Mobile WebKit fix */
+    overflow: hidden; /* Force rounded corner clipping */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.roadmap h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.roadmap p {
+    margin-bottom: 1rem;
+    margin: 1em auto;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: left;
+    max-width: 500px;
+}
+
+/* Table-Style List - Mobile Border-Radius Fix */
+.table-style-list {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #ddd;
+  font-family: Arial, sans-serif;
+  margin: 0 auto;
+  border-radius: 10px;
+  -webkit-border-radius: 10px; /* Mobile WebKit fix */
+  overflow: hidden; /* Force rounded corner clipping */
+}
+
+.list-row {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+
+.list-row:last-child {
+  border-bottom: none;
+}
+
+.header-row {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.cell {
+  padding: 8px 12px;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.cell-1 {
+  width: 60%;
+  border-right: 1px solid #ddd;
+}
+
+/* ------------------------------ */
+/* why.html Specific Styles */
+/* ------------------------------ */
+.reason {
+    width: 90%;
+    max-width: 350px;
+    max-height: 60%;
+    background-color: whitesmoke;
+    margin: 2em auto;
+    padding: 2em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    -webkit-border-radius: 10px; /* Mobile WebKit fix */
+    overflow: hidden; /* Force rounded corner clipping */
+    text-align: left;
+}
+
+/* Why Page Images - Mobile Border-Radius Fix */
+.text-image img {
+    display: block;
+    width: 90%;
+    height: auto;
+    margin: 1em auto;
+    object-fit: contain;
+    border-radius: 10px;
+    -webkit-border-radius: 10px; /* Mobile WebKit fix */
+    overflow: hidden; /* Force rounded corner clipping */
+    display: block; /* Fix inline element rendering */
+}
+
+.reason h2 {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
+
+.reason p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.note {
+    font-style: italic;
+    color: #555;
+    margin-top: 1rem;
+}
+
+/* ------------------------------ */
+/* Media Query for 768px+ (Tablet/Desktop) */
+/* ------------------------------ */
+@media (min-width: 768px) {
+    .banner {
+        height: 350px; /* Larger screen height */
+        margin-bottom: 2rem; /* More spacing for large screens */
+    }
+    .top-right nav a {
+        display: inline-block; /* Horizontal links on larger screens */
+    }
+
+    .top-words h1 {
+        font-size: 1.8rem;
+    }
+    .main-home h2.instruction {
+        margin: 0 0 1.5rem 0;
+    }
+    .cards {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on large screens */
+    }
+    .skills p {
+        /* 适配大屏，保留max-width避免文字过长 */
+        max-width: 300px;
+    }
+    .reason {
+        max-width: 800px;
+        margin: 0 auto 30px auto;
+    }
+    .text-image img {
+        float: left;
+        max-width: 400px;
+        margin-right: 2em;
+    }
+    .text-image p {
+        padding-top: 3em;
+    }
+}
